@@ -17,5 +17,5 @@ steps:
 
 - bash: |
       cd $(System.DefaultWorkingDirectory)
-      cd testexistfolder
+      ls
       sleep 10 
