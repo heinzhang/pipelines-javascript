@@ -31,7 +31,7 @@ steps:
       cd testscripts
       echo $GITUSERNAME
       echo $GITPWD
-      git clone -b staging https://$GITUSERNAME:$GITPWD@bitbucket.org/qriousnz/rundowncyp.git
+      git clone -b staging $GITURL
   displayName: Cloning the script 
 
 - bash: |
