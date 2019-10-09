@@ -20,27 +20,6 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-
 - bash: |
-      npm install cypress --save-dev
-
-  displayName: Installing Cypress 
-- bash: |
-      cd /home/vsts/work/1/s
-      mkdir testscripts 
-      cd testscripts
-      echo $GITUSERNAME
-      echo $GITPWD
-      git clone -b staging $(giturl)
-  displayName: Cloning the script 
-
-- bash: |
-      cd /home/vsts/work/1/s/testscripts/rundowncyp
-      npx cypress run --spec "cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production
-  displayName: Run the database automation
-  continueOnError: true
-
-- bash: |
-      cd /home/vsts/work/1/s/testscripts/rundowncyp
-      npx cypress run --spec "cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production
-
+    echo $(System.DefaultWorkingDirectory)
+    sleep 30
