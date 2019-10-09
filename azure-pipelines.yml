@@ -19,4 +19,5 @@ steps:
       cd $(System.DefaultWorkingDirectory)
       cd tests
       ls
+      cat test.js
       sleep 10 
