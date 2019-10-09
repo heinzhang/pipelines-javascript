@@ -37,3 +37,8 @@ steps:
       npx cypress run --spec "cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production --reporter junit --reporter-options "mochaFile=results/my-test-output.xml,toConsole=true"
   displayName: Run the database automation
   continueOnError: true
+- task: PublishTestResults@1
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: '**/TEST-RESULTS.xml
