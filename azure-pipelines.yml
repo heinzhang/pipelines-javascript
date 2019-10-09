@@ -39,8 +39,12 @@ steps:
   continueOnError: true
 
 - bash: |
+      cd $(System.DefaultWorkingDirectory)/testscripts
+      echo 'List the folders under testscripts'
+      ls
       cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
       echo 'List the folders under rundowncyp'
+      ls
       cd cypress 
       echo 'List the folders under cypress'
       ls 
