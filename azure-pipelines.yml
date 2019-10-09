@@ -17,5 +17,6 @@ steps:
 
 - bash: |
       cd $(System.DefaultWorkingDirectory)
+      cd tests
       ls
       sleep 10 
