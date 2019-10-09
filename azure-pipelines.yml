@@ -1,0 +1,48 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run build
+  displayName: 'npm install and build'
+
+
+- bash: |
+      pwd
+      cd /home/vsts/work/1/s/node_modules
+      npm install cypress --save-dev
+
+  displayName: Installing Cypress 
+- bash: |
+      cd /home/vsts/work/1/s
+      mkdir testscripts 
+      cd testscripts
+      git clone -b staging https://$GITUSERNAME:$GITPWD@bitbucket.org/qriousnz/rundowncyp.git
+  displayName: Cloning the script 
+
+
+- bash: |
+      cd /home/vsts/work/1/s/testscripts/rundowncyp
+      /home/vsts/work/1/s/node_modules/cypress/bin/cypress run --spec "/home/vsts/work/1/s/testscripts/rundowncyp/cypress/integration/Database/*.js" --env username=cypress,password=Cypress123#
+  displayName: Run the database automation
+  continueOnError: true
+
+- bash: |
+      cd /home/vsts/work/1/s/testscripts/rundowncyp
+      /home/vsts/work/1/s/node_modules/cypress/bin/cypress run --spec "/home/vsts/work/1/s/testscripts/rundowncyp/cypress/integration/Database/*.js" --env username=cypress,password=Cypress123#
+  displayName: Run the database automation again to see if it would continue
+
