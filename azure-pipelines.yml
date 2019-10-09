@@ -21,5 +21,24 @@ steps:
   displayName: 'npm install and build'
 
 - bash: |
-    echo $(System.DefaultWorkingDirectory)
-    sleep 30
+      cd $(System.DefaultWorkingDirectory)
+      npm install cypress --save-dev
+
+  displayName: Installing Cypress 
+- bash: |
+      cd $(System.DefaultWorkingDirectory)
+      mkdir testscripts 
+      cd testscripts
+      git clone -b staging $(giturl)
+  displayName: Cloning the script 
+
+- bash: |
+      cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
+      npx cypress run --spec "cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production
+  displayName: Run the database automation
+  continueOnError: true
+
+- bash: |
+      cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
+      npx cypress run --spec "cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production
+
