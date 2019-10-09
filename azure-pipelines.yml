@@ -34,11 +34,11 @@ steps:
 
 - bash: |
       cd /home/vsts/work/1/s/testscripts/rundowncyp
-      npx cypress run --spec "/cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production
+      /home/vsts/work/1/s/node_modules/cypress/bin/cypress run --spec "/cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production
   displayName: Run the database automation
   continueOnError: true
 
 - bash: |
       cd /home/vsts/work/1/s/testscripts/rundowncyp
-      npx cypress run --spec "cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production
+      /home/vsts/work/1/s/node_modules/cypress/bin/cypress run --spec "cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production
 
