@@ -18,5 +18,9 @@ steps:
 - bash: |
       cd $(System.DefaultWorkingDirectory)
       cd tests
+      echo 'create a folder here called test folder'
+      mkdir testfolder 
+      echo 'create a file here'
+      touch test2.js 
       ls
       sleep 10 
