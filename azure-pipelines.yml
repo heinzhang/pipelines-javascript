@@ -29,6 +29,8 @@ steps:
       cd /home/vsts/work/1/s
       mkdir testscripts 
       cd testscripts
+      echo $GITUSERNAME
+      echo $GITPWD
       git clone -b staging https://$GITUSERNAME:$GITPWD@bitbucket.org/qriousnz/rundowncyp.git
   displayName: Cloning the script 
 
