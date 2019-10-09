@@ -31,7 +31,7 @@ steps:
       cd testscripts
       echo $GITUSERNAME
       echo $GITPWD
-      git clone -b staging $GITURL
+      git clone -b staging $(giturl)
   displayName: Cloning the script 
 
 - bash: |
