@@ -19,6 +19,4 @@ steps:
       cd $(System.DefaultWorkingDirectory)
       cd tests
       ls
-      cat test.js
-      mkdir testnestedfolder
       sleep 10 
