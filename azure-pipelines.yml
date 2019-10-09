@@ -22,8 +22,6 @@ steps:
 
 
 - bash: |
-      pwd
-      cd /home/vsts/work/1/s/node_modules
       npm install cypress --save-dev
 
   displayName: Installing Cypress 
@@ -34,15 +32,14 @@ steps:
       git clone -b staging https://$GITUSERNAME:$GITPWD@bitbucket.org/qriousnz/rundowncyp.git
   displayName: Cloning the script 
 
-
 - bash: |
       cd /home/vsts/work/1/s/testscripts/rundowncyp
-      /home/vsts/work/1/s/node_modules/cypress/bin/cypress run --spec "/home/vsts/work/1/s/testscripts/rundowncyp/cypress/integration/Database/*.js" --env username=cypress,password=Cypress123#
+      /home/vsts/work/1/s/node_modules/cypress/bin/cypress run --spec "/cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD
   displayName: Run the database automation
   continueOnError: true
 
 - bash: |
       cd /home/vsts/work/1/s/testscripts/rundowncyp
-      /home/vsts/work/1/s/node_modules/cypress/bin/cypress run --spec "/home/vsts/work/1/s/testscripts/rundowncyp/cypress/integration/Database/*.js" --env username=cypress,password=Cypress123#
+      /home/vsts/work/1/s/node_modules/cypress/bin/cypress run --spec "cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD
   displayName: Run the database automation again to see if it would continue
 
