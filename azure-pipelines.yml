@@ -18,6 +18,5 @@ steps:
 - bash: |
       cd $(System.DefaultWorkingDirectory)
       cd tests
-      cp test.js test2.js 
       ls
       sleep 10 
