@@ -37,6 +37,17 @@ steps:
       npx cypress run --spec "cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production --reporter junit --reporter-options "mochaFile=results/my-test-output.xml,toConsole=true"
   displayName: Run the database automation
   continueOnError: true
+
+- bash: |
+      cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
+      echo 'List the folders under rundowncyp'
+      cd cypress 
+      echo 'List the folders under cypress'
+      ls 
+      cd results 
+      echo 'List the folders under results'
+      ls 
+      sleep 20 
 - task: PublishTestResults@2
   condition: succeededOrFailed()
   inputs:
