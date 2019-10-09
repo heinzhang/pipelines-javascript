@@ -42,4 +42,4 @@ steps:
   inputs:
     testRunner: JUnit
     searchFolder: '$(System.DefaultWorkingDirectory)/testscripts/'
-    testResultsFiles: '**/TEST-RESULTS.xml'
+    testResultsFiles: '**/my-test-output.xml'
