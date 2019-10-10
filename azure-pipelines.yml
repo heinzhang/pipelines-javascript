@@ -45,10 +45,7 @@ steps:
       cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
       echo 'List the folders under rundowncyp'
       ls
-      cd cypress 
-      echo 'List the folders under cypress'
-      ls 
-      cd results 
+      cd results
       echo 'List the folders under results'
       ls 
       sleep 20 
@@ -56,5 +53,5 @@ steps:
   condition: succeededOrFailed()
   inputs:
     testRunner: JUnit
-    searchFolder: '$(System.DefaultWorkingDirectory)/testscripts/'
+    searchFolder: '$(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results'
     testResultsFiles: 'my-test-output.xml'
