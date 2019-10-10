@@ -37,11 +37,13 @@ steps:
       echo 'show the files under testscripts'
       ls 
       echo 'run npm list to show the list'
-      sleep 20
-      npm list 
       cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
       echo 'show the files under rundowncyp'
-      ls 
-      sleep 20 
-    
+      ls     
   displayName: Check the cypress installation folder 
+
+- bash: |
+      cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
+      npx cypress run --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production --reporter junit --reporter-options "mochaFile=results/my-test-output.xml,toConsole=true"
+  displayName: Run the database automation
+  continueOnError: true
