@@ -29,12 +29,12 @@ steps:
       cd $(System.DefaultWorkingDirectory)
       mkdir testscripts 
       cd testscripts
-      git clone -b staging $(giturl)
+      git clone -b production $(giturl)
   displayName: Cloning the script 
 
 - bash: |
       cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
-      npx cypress run --spec "cypress/integration/Database/*.js" --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production --reporter junit --reporter-options "mochaFile=results/my-test-output.xml,toConsole=true"
+      npx cypress run --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production --reporter junit --reporter-options "mochaFile=results/my-test-output.xml,toConsole=true"
   displayName: Run the database automation
   continueOnError: true
 
