@@ -21,18 +21,21 @@ steps:
   displayName: 'npm install and build'
 
 - bash: |
-      cd $(System.DefaultWorkingDirectory)
-      mkdir testscripts 
+      mkdir testscripts
       cd testscripts
-      npm install cypress --save-dev
+      git clone -b production $(giturl)
+  displayName: Clone from bitbucket
 
-  displayName: Installing Cypress 
+- task: Npm@1
+  inputs:
+    command: custom
+    workingDir: $(System.DefaultWorkingDirectory)/testscripts 
+    customCommand: install cypress --save-dev
 
 - bash: |
       cd $(System.DefaultWorkingDirectory)/testscripts
       echo 'show the files under testscripts'
       ls 
       sleep 20 
-      
-
+    
   displayName: Check the cypress installation folder 
