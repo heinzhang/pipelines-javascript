@@ -22,36 +22,17 @@ steps:
 
 - bash: |
       cd $(System.DefaultWorkingDirectory)
+      mkdir testscripts 
+      cd testscripts
       npm install cypress --save-dev
 
   displayName: Installing Cypress 
-- bash: |
-      cd $(System.DefaultWorkingDirectory)
-      mkdir testscripts 
-      cd testscripts
-      git clone -b production $(giturl)
-  displayName: Cloning the script 
-
-- bash: |
-      cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
-      npx cypress run --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production --reporter junit --reporter-options "mochaFile=results/my-test-output.xml,toConsole=true"
-  displayName: Run the database automation
-  continueOnError: true
 
 - bash: |
       cd $(System.DefaultWorkingDirectory)/testscripts
-      echo 'List the folders under testscripts'
-      ls
-      cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
-      echo 'List the folders under rundowncyp'
-      ls
-      cd results
-      echo 'List the folders under results'
+      echo 'show the files under testscripts'
       ls 
       sleep 20 
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testRunner: JUnit
-    searchFolder: '$(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results'
-    testResultsFiles: 'my-test-output.xml'
+      
+
+  displayName: Check the cypress installation folder 
