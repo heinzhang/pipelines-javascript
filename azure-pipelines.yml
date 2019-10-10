@@ -36,6 +36,11 @@ steps:
       cd $(System.DefaultWorkingDirectory)/testscripts
       echo 'show the files under testscripts'
       ls 
+      echo 'run npm list to show the list'
+      sleep 20
+      npm list 
+      cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
+      echo 'show the files under rundowncyp'
       sleep 20 
     
   displayName: Check the cypress installation folder 
