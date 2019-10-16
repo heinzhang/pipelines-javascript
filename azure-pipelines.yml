@@ -20,6 +20,23 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
+- bash: |
+      mkdir testscripts
+      cd testscripts
+      git clone -b production $(giturl)
+  displayName: Clone from bitbucket
+
+- task: Npm@1
+  inputs:
+    command: custom
+    workingDir: $(System.DefaultWorkingDirectory)/testscripts/rundowncyp 
+    customCommand: install cypress --save-dev
+
+- task: Npm@1
+  inputs:
+    command: custom
+    workingDir: $(System.DefaultWorkingDirectory)/testscripts/rundowncyp 
+    customCommand: install junit-merge
 
 - bash: |
       cd $(System.DefaultWorkingDirectory)/testscripts
@@ -29,8 +46,19 @@ steps:
       cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
       echo 'show the files under rundowncyp'
       ls     
-      echo 'entering the results folder'
-      cd results 
-      ls 
-      sleep 100 
   displayName: Check the cypress installation folder 
+
+- bash: |
+      cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
+      npx cypress run --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production --reporter junit --reporter-options "mochaFile=results/my-test-output-[hash].xml,toConsole=true"  displayName: Run the database automation
+  continueOnError: true
+
+- bash: |
+      cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results
+      npx junit-merge -d . 
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    searchFolder: '$(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results'
+    testResultsFiles: 'merged-test-results.xml'
