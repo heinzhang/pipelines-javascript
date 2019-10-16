@@ -64,7 +64,6 @@ steps:
       npx junit-merge -d . 
 
 - task: PublishTestResults@1
-  condition: succeededOrFailed()
   inputs:
     searchFolder: '$(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results'
     testResultsFiles: 'merged-test-results.xml'
