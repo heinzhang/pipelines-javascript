@@ -44,6 +44,11 @@ steps:
 
 - bash: |
       cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
-      npx cypress run --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production --reporter junit --reporter-options "mochaFile=results/my-test-output.xml,toConsole=true"
-  displayName: Run the database automation
+      npx cypress run --env username=$CYPRESSUSERNAME,password=$CYPRESSPWD,configFile=production --reporter junit --reporter-options "mochaFile=results/my-test-output-[hash].xml,toConsole=true"  displayName: Run the database automation
   continueOnError: true
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    searchFolder: '$(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results'
+    testResultsFiles: 'my-test-output*.xml'
