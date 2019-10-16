@@ -48,15 +48,12 @@ steps:
       ls     
   displayName: Check the cypress installation folder 
 
-
 - bash: |
       rm -rf $(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results/*  
   displayName: Clean the test results folder 
 
 - bash: |
       cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
-      echo 'Showing the username'
-      echo $(cypresspwd)
       npx cypress run --env username=$(cypressusername),password=$(cypresspwd),configFile=production --reporter junit --reporter-options "mochaFile=results/my-test-output-[hash].xml,toConsole=true"  displayName: Run the database automation
   continueOnError: true
 
@@ -66,7 +63,7 @@ steps:
       ls
       npx junit-merge -d . 
 
-- task: PublishTestResults@2
+- task: PublishTestResults@1
   condition: succeededOrFailed()
   inputs:
     searchFolder: '$(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results'
