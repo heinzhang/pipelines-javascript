@@ -50,7 +50,7 @@ steps:
 
 
 - bash: |
-      rm $(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results/*  
+      rm -rf $(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results/*  
   displayName: Clean the test results folder 
 
 - bash: |
