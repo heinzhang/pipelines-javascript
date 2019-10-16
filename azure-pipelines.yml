@@ -48,6 +48,11 @@ steps:
       ls     
   displayName: Check the cypress installation folder 
 
+
+- bash: |
+      rm $(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results/*  
+  displayName: Clean the test results folder 
+
 - bash: |
       cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp
       echo 'Showing the username'
@@ -57,6 +62,8 @@ steps:
 
 - bash: |
       cd $(System.DefaultWorkingDirectory)/testscripts/rundowncyp/results
+      echo 'Show the generated test xmls'
+      ls
       npx junit-merge -d . 
 
 - task: PublishTestResults@2
